@@ -1,0 +1,34 @@
+<div class="dashboard-layout">
+  <aside class="sidebar">
+    <div class="sidebar-icons">
+      <button mat-icon-button><mat-icon>home</mat-icon></button>
+      <button mat-icon-button><mat-icon>bar_chart</mat-icon></button>
+      <button mat-icon-button><mat-icon>event</mat-icon></button>
+      <button mat-icon-button><mat-icon>person</mat-icon></button>
+    </div>
+    <button mat-raised-button class="logout-button" (click)="logout()">Logout</button>
+  </aside>
+  <main class="main-content">
+    <div class="main-header">
+      <div class="greeting">Hello, Blaj</div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value">0</div>
+        <div class="stat-label">Workouts This Week</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">0</div>
+        <div class="stat-label">Calories Burned</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">0</div>
+        <div class="stat-label">Active Minutes</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">0</div>
+        <div class="stat-label">Steps Today</div>
+      </div>
+    </div>
+  </main>
+</div>
