@@ -1,0 +1,27 @@
+<div class="profile-container">
+  <div class="profile-card">
+    <img class="profile-avatar" src="assets/profilBlaj.jpeg" alt="Profile Picture">
+    <div class="profile-info">
+      <div class="profile-name">Blaj Andrei</div>
+      <div class="profile-email">blajandrei04&#64;gmail.com</div>
+    </div>
+    <button class="close-btn" aria-label="Close" (click)="closeProfile()">&times;</button>
+    <div class="profile-details">
+      <div class="detail-row"><span>Name</span><span>Blaj Andrei</span></div>
+      <div class="detail-row"><span>Email account</span><span>blajandrei04&#64;gmail.com</span></div>
+      <div class="detail-row"><span>Mobile number</span><span>0745989117</span></div>
+      <div class="detail-row"><span>Location</span><span>Romania</span></div>
+    </div>
+    <button class="save-btn">Save Changes</button>
+  </div>
+  <div class="profile-menu">
+    <button class="menu-item">My Profile</button>
+    <button class="menu-item">Settings</button>
+    <button class="menu-item" (click)="logout()">Log Out</button>
+  </div>
+  <div class="settings-popup">
+    <div class="settings-header">Settings <button class="close-settings">&times;</button></div>
+    <div class="settings-row"><span>Theme</span><span>Light</span></div>
+    <div class="settings-row"><span>Language</span><span>Eng</span></div>
+  </div>
+</div> 

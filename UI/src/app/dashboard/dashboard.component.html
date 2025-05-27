@@ -4,7 +4,7 @@
       <button mat-icon-button><mat-icon>home</mat-icon></button>
       <button mat-icon-button><mat-icon>bar_chart</mat-icon></button>
       <button mat-icon-button><mat-icon>event</mat-icon></button>
-      <button mat-icon-button><mat-icon>person</mat-icon></button>
+      <button mat-icon-button (click)="goToProfile()"><mat-icon>person</mat-icon></button>
     </div>
     <button mat-raised-button class="logout-button" (click)="logout()">Logout</button>
   </aside>
