@@ -16,4 +16,8 @@ export const routes: Routes = [
         path:'dashboard',
         component:DashboardComponent,
     },
+    {
+        path:'profile',
+        loadComponent: () => import('./profile/profile.component').then(m => m.ProfileComponent),
+    },
 ];
