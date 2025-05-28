@@ -23,5 +23,5 @@ export const routes: Routes = [
     {
         path:'calendar',
         loadComponent: () => import('./calendar/calendar.component').then(m => m.CalendarComponent),
-    },
+    }
 ];

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
+  @Output() close = new EventEmitter<void>();
+
   router = inject(Router);
 
   profile = {
@@ -23,6 +25,6 @@ export class ProfileComponent {
   }
 
   closeProfile() {
-    this.router.navigate(['/dashboard']);
+    this.close.emit();
   }
 } 

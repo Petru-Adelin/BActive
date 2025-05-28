@@ -1,0 +1,103 @@
+.stats-container {
+  padding: 10px;
+  height: 100%;
+  background: transparent;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 10px;
+}
+
+.chart-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.chart-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(67, 209, 103, 0.3);
+  box-shadow: 0 12px 40px rgba(67, 209, 103, 0.15);
+}
+
+.stats-table-card {
+  grid-column: span 2;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.stats-table-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(67, 209, 103, 0.3);
+  box-shadow: 0 12px 40px rgba(67, 209, 103, 0.15);
+}
+
+.stats-table {
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.mat-mdc-header-cell {
+  font-weight: bold;
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mat-mdc-cell {
+  padding: 12px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+mat-card-header {
+  margin-bottom: 8px;
+  padding: 16px 16px 0 16px;
+}
+
+mat-card-title {
+  font-size: 1rem;
+  color: #fff;
+  margin: 0;
+  font-weight: 500;
+}
+
+mat-card-content {
+  padding: 0 16px 16px 16px;
+}
+
+canvas {
+  max-height: 200px;
+  width: 100% !important;
+}
+
+/* Custom scrollbar for the table */
+.stats-table-card ::ng-deep .mat-mdc-table {
+  background: transparent;
+}
+
+.stats-table-card ::ng-deep .mat-mdc-row {
+  background: transparent;
+  transition: background 0.3s ease;
+}
+
+.stats-table-card ::ng-deep .mat-mdc-row:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.stats-table-card ::ng-deep .mat-mdc-header-row {
+  background: rgba(255, 255, 255, 0.05);
+} 
