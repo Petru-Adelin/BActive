@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ActivityService, ActivityData } from '../services/activity.service';
 import { CommonModule } from '@angular/common';
 import { EditStatModalComponent } from './edit-stat-modal/edit-stat-modal.component';
@@ -9,7 +9,7 @@ import { EditStatModalComponent } from './edit-stat-modal/edit-stat-modal.compon
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, CommonModule, EditStatModalComponent],
+  imports: [MatButtonModule, MatIconModule, CommonModule, EditStatModalComponent, RouterModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
