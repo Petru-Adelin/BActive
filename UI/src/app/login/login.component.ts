@@ -29,6 +29,10 @@ export class LoginComponent {
 
   router=inject(Router);
 
+  /**
+   * This part should be reaplaced by the sending of the information via fetch or other http call 
+   * to the server
+   */
   validateLogin(email:string,password:string):boolean{
     return email===this.storedUser.email && password===this.storedUser.password;
   }

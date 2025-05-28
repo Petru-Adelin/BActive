@@ -41,14 +41,68 @@
   box-shadow: 0 12px 40px rgba(67, 209, 103, 0.15);
 }
 
+.profile-avatar-container {
+  position: relative;
+  cursor: pointer;
+  margin-bottom: 28px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+  transition: all 0.3s ease;
+}
+
+.profile-avatar-container:hover {
+  transform: scale(1.05);
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.25));
+}
+
 .profile-avatar {
-  width: 96px;
-  height: 96px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 24px;
-  border: 3px solid #43d167;
-  box-shadow: 0 4px 12px rgba(67, 209, 103, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.profile-avatar-overlay {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(2px);
+  pointer-events: none;
+}
+
+.profile-avatar-container:hover .profile-avatar-overlay {
+  opacity: 1;
+}
+
+.profile-avatar-overlay span {
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  padding: 0 10px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  transform: translateY(2px);
+  transition: transform 0.3s ease;
+}
+
+.profile-avatar-container:hover .profile-avatar-overlay span {
+  transform: translateY(0);
 }
 
 .profile-info {
@@ -272,4 +326,39 @@
 
 .settings-popup {
   display: none;
+}
+
+.upload-error {
+  color: #ff4d4d;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.save-btn:disabled {
+  background: #666;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.save-btn:disabled:hover {
+  background: #666;
+  transform: none;
+  box-shadow: none;
+}
+
+.save-message {
+  color: #43d167;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  text-align: center;
+  animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
 } 
