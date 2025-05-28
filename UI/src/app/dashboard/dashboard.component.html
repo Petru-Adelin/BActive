@@ -1,17 +1,17 @@
 <div class="dashboard-layout">
   <aside class="sidebar">
     <div class="sidebar-icons">
-      <button mat-icon-button><mat-icon>home</mat-icon></button>
-      <button mat-icon-button><mat-icon>bar_chart</mat-icon></button>
-      <button mat-icon-button><mat-icon>event</mat-icon></button>
-      <button mat-icon-button (click)="goToProfile()"><mat-icon>person</mat-icon></button>
+      <button mat-icon-button routerLink="/dashboard"><mat-icon>home</mat-icon></button>
+      <button mat-icon-button (click)="toggleStats()"><mat-icon>bar_chart</mat-icon></button>
+      <button mat-icon-button routerLink="/calendar"><mat-icon>event</mat-icon></button>
+      <button mat-icon-button (click)="toggleProfile()"><mat-icon>person</mat-icon></button>
     </div>
   </aside>
   <main class="main-content">
     <div class="main-header">
       <div class="greeting">Hello, Blaj</div>
     </div>
-    <div class="stats-grid">
+    <div *ngIf="!showStats && !showProfile" class="stats-grid">
       <div class="stat-card" (click)="openEditModal('Workouts', todayActivity?.workouts || 0, 'workouts')">
         <img src="assets/fitness-gym.png" class="stat-icon" alt="Workouts This Week">
         <div class="stat-value">{{ todayActivity?.workouts || 0 }}/{{ todayActivity?.workoutsObjective || 5 }}</div>
@@ -45,6 +45,8 @@
         </div>
       </div>
     </div>
+    <app-stats *ngIf="showStats"></app-stats>
+    <app-profile *ngIf="showProfile" (close)="closeProfile()"></app-profile>
   </main>
 </div>
 

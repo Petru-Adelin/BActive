@@ -1,0 +1,50 @@
+<div class="dashboard-layout">
+  <aside class="sidebar">
+    <div class="sidebar-icons">
+      <button mat-icon-button routerLink="/dashboard"><mat-icon>home</mat-icon></button>
+      <button mat-icon-button routerLink="/dashboard"><mat-icon>bar_chart</mat-icon></button>
+      <button mat-icon-button routerLink="/calendar" class="active"><mat-icon>event</mat-icon></button>
+      <button mat-icon-button (click)="goToProfile()"><mat-icon>person</mat-icon></button>
+    </div>
+  </aside>
+  <main class="main-content">
+    <div class="main-header">
+      <div class="greeting">Activity Calendar</div>
+    </div>
+    <div class="calendar-container">
+      <mat-calendar
+        [selected]="selectedDate"
+        (selectedChange)="onDateSelected($event)"
+        [dateClass]="dateClass">
+      </mat-calendar>
+      
+      <div class="stats-container" *ngIf="dailyStats">
+        <div class="stats-header">
+          <h2>{{ selectedDate | date:'MMMM d, y' }}</h2>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <img src="assets/fitness-gym.png" class="stat-icon" alt="Workouts">
+            <div class="stat-value">{{ dailyStats.workouts }}</div>
+            <div class="stat-label">Workouts</div>
+          </div>
+          <div class="stat-card">
+            <img src="assets/calories.png" class="stat-icon" alt="Calories Burned">
+            <div class="stat-value">{{ dailyStats.caloriesBurned }}</div>
+            <div class="stat-label">Calories Burned</div>
+          </div>
+          <div class="stat-card">
+            <img src="assets/stopwatch.png" class="stat-icon" alt="Active Minutes">
+            <div class="stat-value">{{ dailyStats.activeMinutes }}</div>
+            <div class="stat-label">Active Minutes</div>
+          </div>
+          <div class="stat-card">
+            <img src="assets/shoes.png" class="stat-icon" alt="Steps">
+            <div class="stat-value">{{ dailyStats.steps }}</div>
+            <div class="stat-label">Steps</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div> 
