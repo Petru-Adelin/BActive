@@ -66,6 +66,7 @@
   border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
+  pointer-events: none;
 }
 
 .profile-avatar-overlay {
@@ -82,6 +83,7 @@
   opacity: 0;
   transition: all 0.3s ease;
   backdrop-filter: blur(2px);
+  pointer-events: none;
 }
 
 .profile-avatar-container:hover .profile-avatar-overlay {
@@ -324,4 +326,39 @@
 
 .settings-popup {
   display: none;
+}
+
+.upload-error {
+  color: #ff4d4d;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.save-btn:disabled {
+  background: #666;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.save-btn:disabled:hover {
+  background: #666;
+  transform: none;
+  box-shadow: none;
+}
+
+.save-message {
+  color: #43d167;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  text-align: center;
+  animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
 } 

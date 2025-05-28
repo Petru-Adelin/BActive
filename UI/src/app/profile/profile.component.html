@@ -1,7 +1,7 @@
 <div class="profile-container">
   <div class="profile-card">
-    <div class="profile-avatar-container">
-      <img class="profile-avatar" [src]="profile.avatar" alt="Profile Picture" (click)="triggerFileInput()">
+    <div class="profile-avatar-container" (click)="triggerFileInput()">
+      <img class="profile-avatar" [src]="tempAvatar || profile.avatar" alt="Profile Picture">
       <div class="profile-avatar-overlay">
         <span>Change Photo</span>
       </div>
@@ -10,6 +10,7 @@
     <div class="profile-info">
       <div class="profile-name">Blaj Andrei</div>
       <div class="profile-email">blajandrei04&#64;gmail.com</div>
+      <div *ngIf="showSaveMessage" class="save-message">Profile picture updated</div>
     </div>
     <button class="close-btn" aria-label="Close" (click)="closeProfile()">&times;</button>
     <div class="profile-details">
@@ -18,7 +19,7 @@
       <div class="detail-row"><span>Mobile number</span><span>0745989117</span></div>
       <div class="detail-row"><span>Location</span><span>Romania</span></div>
     </div>
-    <button class="save-btn">Save Changes</button>
+    <button class="save-btn" (click)="saveChanges()" [disabled]="!tempAvatar">Save Changes</button>
   </div>
   <div class="profile-menu">
     <button class="menu-item">My Profile</button>
