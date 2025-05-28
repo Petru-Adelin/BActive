@@ -1,0 +1,19 @@
+<div class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 class="modal-title">{{ statName }}</h2>
+      <button class="close-button" (click)="close.emit()">×</button>
+    </div>
+    <div class="value-controls">
+      <button class="control-button" (click)="decrementValue()">-</button>
+      <input 
+        type="number" 
+        class="value-input" 
+        [(ngModel)]="currentValue"
+        (ngModelChange)="onValueChange($event)"
+      >
+      <button class="control-button" (click)="incrementValue()">+</button>
+    </div>
+    <button class="save-button" (click)="save.emit(currentValue)">Save</button>
+  </div>
+</div> 

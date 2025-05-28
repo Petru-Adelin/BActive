@@ -4,31 +4,54 @@
       <button mat-icon-button><mat-icon>home</mat-icon></button>
       <button mat-icon-button><mat-icon>bar_chart</mat-icon></button>
       <button mat-icon-button><mat-icon>event</mat-icon></button>
-      <button mat-icon-button><mat-icon>person</mat-icon></button>
+      <button mat-icon-button (click)="goToProfile()"><mat-icon>person</mat-icon></button>
     </div>
-    <button mat-raised-button class="logout-button" (click)="logout()">Logout</button>
   </aside>
   <main class="main-content">
     <div class="main-header">
       <div class="greeting">Hello, Blaj</div>
     </div>
     <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-value">0</div>
+      <div class="stat-card" (click)="openEditModal('Workouts', todayActivity?.workouts || 0, 'workouts')">
+        <img src="assets/fitness-gym.png" class="stat-icon" alt="Workouts This Week">
+        <div class="stat-value">{{ todayActivity?.workouts || 0 }}/{{ todayActivity?.workoutsObjective || 5 }}</div>
         <div class="stat-label">Workouts This Week</div>
+        <div class="progress-bar">
+          <div class="progress" [style.width.%]="getProgressPercentage(todayActivity?.workouts || 0, todayActivity?.workoutsObjective || 5)"></div>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-value">0</div>
+      <div class="stat-card" (click)="openEditModal('Calories', todayActivity?.caloriesBurned || 0, 'caloriesBurned')">
+        <img src="assets/calories.png" class="stat-icon" alt="Calories Burned">
+        <div class="stat-value">{{ todayActivity?.caloriesBurned || 0 }}/{{ todayActivity?.caloriesObjective || 2000 }}</div>
         <div class="stat-label">Calories Burned</div>
+        <div class="progress-bar">
+          <div class="progress" [style.width.%]="getProgressPercentage(todayActivity?.caloriesBurned || 0, todayActivity?.caloriesObjective || 2000)"></div>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-value">0</div>
+      <div class="stat-card" (click)="openEditModal('Active Minutes', todayActivity?.activeMinutes || 0, 'activeMinutes')">
+        <img src="assets/stopwatch.png" class="stat-icon" alt="Active Minutes">
+        <div class="stat-value">{{ todayActivity?.activeMinutes || 0 }}/{{ todayActivity?.activeMinutesObjective || 60 }}</div>
         <div class="stat-label">Active Minutes</div>
+        <div class="progress-bar">
+          <div class="progress" [style.width.%]="getProgressPercentage(todayActivity?.activeMinutes || 0, todayActivity?.activeMinutesObjective || 60)"></div>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-value">0</div>
+      <div class="stat-card" (click)="openEditModal('Steps', todayActivity?.steps || 0, 'steps')">
+        <img src="assets/shoes.png" class="stat-icon" alt="Steps Today">
+        <div class="stat-value">{{ todayActivity?.steps || 0 }}/{{ todayActivity?.stepsObjective || 10000 }}</div>
         <div class="stat-label">Steps Today</div>
+        <div class="progress-bar">
+          <div class="progress" [style.width.%]="getProgressPercentage(todayActivity?.steps || 0, todayActivity?.stepsObjective || 10000)"></div>
+        </div>
       </div>
     </div>
   </main>
 </div>
+
+<app-edit-stat-modal
+  *ngIf="showModal && editingStat"
+  [statName]="editingStat.name"
+  [value]="editingStat.value"
+  (save)="saveStatValue($event)"
+  (close)="closeModal()"
+></app-edit-stat-modal>
