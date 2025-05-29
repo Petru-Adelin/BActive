@@ -5,6 +5,9 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Users
 from .utils import encrypt, decrypt
 from  django.core import serializers
+from django.middleware.csrf import get_token
+from django.views.decorators.http import require_http_methods
+
 
 import json
 
@@ -48,8 +51,9 @@ def signin(request: HttpRequest):
 
 # aquiring CSRF token for the post methods 
 @ensure_csrf_cookie
+@require_http_methods(['GET'])
 def aquire_csrf(request: HttpRequest):
-    return JsonResponse({"status": "cookie aquired"})
+    return JsonResponse({"csrfToken": get_token(request)})
 
 
 

@@ -7,7 +7,7 @@
       </div>
     </mat-card-header>
     <mat-card-content>
-      <form #loginForm="ngForm" (submit)="login()">
+      <form #loginForm="ngForm" (submit)="login($event)">
         <mat-error *ngIf="!loginValid">Incorrect email or password</mat-error>
         <mat-form-field>
           <mat-label>Email</mat-label>
