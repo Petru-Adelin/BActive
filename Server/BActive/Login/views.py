@@ -11,28 +11,49 @@ import json
 
 # Create your views here.
 
-def base(request: HttpRequest): 
-    if(request.method == 'GET'):
-        return HttpResponse('We are in the Login page...')
-    
+def login(request: HttpRequest):
     if request.method == 'POST':
         try:
-
             data = json.loads(request.body)
-            username, password, age, email = data.get('username'), data.get('password'), data['age'], data['email']
-            print(f"username: {username}\npassword: {password}\nage: {age}\nemail: {email}")
-            user = Users(name=username, email=email, age=age, password = encrypt(password))
-            # creating a user by mocking 
-            user.save()
+            username, password = data['username'], data['password']
+            try:
+                print(username, encrypt(password))
+                user = Users.objects.get(name = username)
+                if user is not None:
+                    # check if the password is the same 
+                    passw = decrypt(user.password)
+                    if passw == password:
+                        data = serializers.serialize('json', [user])
+                        return HttpResponse('User is loged in, allowed ', status=404)
+                    else:
+                        return HttpResponse('Password is not matching...', status=404)
+            except Users.DoesNotExist:
+                return HttpResponse('Login failed due to entity not being present in the database...', status=404)
+        except json.JSONDecodeError:
+            return HttpResponse('Login failed due to request.body not being conformed...', status=404)
 
+
+def signin(request: HttpRequest):
+    if request.method == 'POST':
+
+        try:
+            data = json.loads(request.body)
+            username, password, age, email = data['username'], data['password'], data['age'], data['email']
+            user = Users(name=username, email=email, age=age, password = encrypt(password))
+            user.save()
             return HttpResponse(f'New user with @email@ {email} has been added...', status = 202)
         except json.JSONDecodeError:
-            return HttpResponse('Not good', status=404)        
+            return HttpResponse('The registration of the user has been aborted...', status=404)
+    
 
+# aquiring CSRF token for the post methods 
 @ensure_csrf_cookie
 def aquire_csrf(request: HttpRequest):
     return JsonResponse({"status": "cookie aquired"})
 
+
+
+# Detele method for the User
 
 def delete_user(request: HttpRequest):
     if request.method == 'DELETE':
@@ -54,8 +75,8 @@ def delete_user(request: HttpRequest):
         except json.JSONDecodeError and Exception as e:
             print(e)
             return HttpResponse('Problem with parsing json...', status=404)
-            
 
+#filter by name
 def filter_user(request: HttpRequest):
     if request.method == 'GET':
         try:
@@ -67,6 +88,8 @@ def filter_user(request: HttpRequest):
         except json.JSONDecodeError:
             return HttpResponse('Problems in loading the json body...', status=404)
         
+
+# util for verifying the encryption
 
 def decry(request: HttpRequest):
     if request.method == 'GET':
