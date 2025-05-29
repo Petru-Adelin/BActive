@@ -24,7 +24,7 @@ def login(request: HttpRequest):
                     passw = decrypt(user.password)
                     if passw == password:
                         data = serializers.serialize('json', [user])
-                        return HttpResponse('User is loged in, allowed ', status=404)
+                        return HttpResponse('User is loged in, allowed to advance', status=200)
                     else:
                         return HttpResponse('Password is not matching...', status=404)
             except Users.DoesNotExist:
@@ -58,13 +58,9 @@ def aquire_csrf(request: HttpRequest):
 def delete_user(request: HttpRequest):
     if request.method == 'DELETE':
         try:
-            print('inside')
             data = json.loads(request.body)
-            print(data)
             email = data['email']
-            print(email)
             user = Users.objects.get(email=email)
-            print(user)
             # user.delete()
             
             try:
