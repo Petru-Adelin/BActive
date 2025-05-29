@@ -20,4 +20,8 @@ export const routes: Routes = [
         path:'profile',
         loadComponent: () => import('./profile/profile.component').then(m => m.ProfileComponent),
     },
+    {
+        path:'calendar',
+        loadComponent: () => import('./calendar/calendar.component').then(m => m.CalendarComponent),
+    }
 ];

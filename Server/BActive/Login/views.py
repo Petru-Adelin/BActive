@@ -11,7 +11,6 @@ import json
 
 # Create your views here.
 
-
 def login(request: HttpRequest):
     if request.method == 'POST':
         try:
@@ -53,7 +52,9 @@ def aquire_csrf(request: HttpRequest):
     return JsonResponse({"status": "cookie aquired"})
 
 
+
 # Detele method for the User
+
 def delete_user(request: HttpRequest):
     if request.method == 'DELETE':
         try:
@@ -74,7 +75,7 @@ def delete_user(request: HttpRequest):
         except json.JSONDecodeError and Exception as e:
             print(e)
             return HttpResponse('Problem with parsing json...', status=404)
-            
+
 #filter by name
 def filter_user(request: HttpRequest):
     if request.method == 'GET':
@@ -87,7 +88,9 @@ def filter_user(request: HttpRequest):
         except json.JSONDecodeError:
             return HttpResponse('Problems in loading the json body...', status=404)
         
+
 # util for verifying the encryption
+
 def decry(request: HttpRequest):
     if request.method == 'GET':
         try:
