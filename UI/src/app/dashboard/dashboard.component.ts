@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { EditStatModalComponent } from './edit-stat-modal/edit-stat-modal.component';
 import { StatsComponent } from '../stats/stats.component';
 import { ProfileComponent } from '../profile/profile.component';
+import { StatsHTTPService } from '../services/stats-http.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,6 +27,7 @@ import { ProfileComponent } from '../profile/profile.component';
 export class DashboardComponent implements OnInit {
   router = inject(Router);
   activityService = inject(ActivityService);
+  http = inject(StatsHTTPService)
 
   todayActivity: ActivityData | undefined;
   showModal = false;
@@ -106,5 +108,45 @@ export class DashboardComponent implements OnInit {
 
   goToProfile() {
     this.router.navigate(['/profile']);
+  }
+
+  getWeeklyStats(){
+
+    // YOU MUST PROVIDE ME 2 DATES FOR THE WEEK ALWAYS THE PREVIOUS WEEK 
+    // LOOK AT THE CURRENT DATE AND COMPUTE THE PREV WEEK
+    this.http.getWeeklyStats('2024-01-04', '2024-01-10', 3).subscribe(resp => {
+      const j_data = JSON.parse(resp)
+
+      // the data is like in Calendar just now there are 7 entries
+      // YOU MUST EMBEDD THEM IN THE UI
+      for(let entry of j_data){
+        const fields = entry['fields']
+        const active_minutes = fields['active_minutes']
+        const calories = fields['calories']
+        const steps = fields['steps']
+        const workouts = fields['workouts']
+        console.log(steps)
+      }
+    })
+  }
+
+  getYearlyStats(){
+    
+    const currentYear = new Date().getFullYear() - 1
+    const user_id = 3
+
+    // THE SAME AS FOR THE WEEK JUST YOU HAVE 366 ENTRIES
+    this.http.getYearlyStats(currentYear, user_id).subscribe(resp => {
+      const j_data = JSON.parse(resp)
+
+      for(const entry of j_data){
+        const fields = entry['fields']
+        const active_minutes = fields['active_minutes']
+        const calories = fields['calories']
+        const steps = fields['steps']
+        const workouts = fields['workouts']
+      }
+    })
+
   }
 }

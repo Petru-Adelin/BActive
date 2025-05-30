@@ -43,19 +43,64 @@ export class LoginComponent  implements OnInit{
   }
 
   login(event: Event){
-    // if(this.validateLogin(this.user.email,this.user.password)){
-    //   localStorage.setItem('loggedInUser',JSON.stringify(this.user.email));
-    //   this.loginValid=true;
-    //   this.router.navigate(['/dashboard']);
-    // }else{
-    //   // alert('Incorrect email or password');
-    //   this.loginValid=false;
-    // }
-    console.log('asdsf')
+
+    
+    const form = event.target as HTMLFormElement
+    const usernameInput = form.querySelector("input[name='email']") as HTMLInputElement
+    const passwordInput = form.querySelector("input[name='password']") as HTMLInputElement
+    if(usernameInput && passwordInput){
+      const data = {
+        username: usernameInput.value,
+        password: passwordInput.value
+      }
+
+      // clean the input fields
+      usernameInput.value = ""
+      passwordInput.value = ""
+      console.log(data)
+      this.loginHttp.login(data.username, data.password).subscribe(response => {
+        console.log(response)
+        if(response.status == 200){
+          console.log('login established...')
+          this.router.navigate(['/dashboard'])
+        }else{
+          console.log(response)
+        }
+      })
+    }
+   
+  }
+
+  signin(event: Event){
+    const form = event.target as HTMLFormElement
+    const usernameInput = form.querySelector("input[name='username']") as HTMLInputElement
+    const passwordInput = form.querySelector("input[name='password']") as HTMLInputElement
+    const emailInput = form.querySelector("input[name='email']") as HTMLInputElement
+    const ageInput = form.querySelector("input[name='age']") as HTMLInputElement
+
+    if(usernameInput && passwordInput && emailInput && ageInput){
+      const data = {
+        username: usernameInput.value,
+        password: passwordInput.value,
+        email: emailInput.value,
+        age: +ageInput.value
+      }
+      this.loginHttp.singin(data.username, data.password, data.email, data.age).subscribe(response => {
+        if(response.status == 200){
+          console.log('Singin enstablished...')
+          this.router.navigate(['/dashboard'])
+        }else{
+          console.log(response)
+        }
+      })
+    }
+
   }
 
   ngOnInit(): void {
       this.loginHttp.login('adelin', 'password123').subscribe((data) => console.log(data))
+      // this.loginHttp.getToken().subscribe(dta => console.log(dta))
+      
   }
 
 }

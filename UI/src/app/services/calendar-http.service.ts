@@ -6,18 +6,22 @@ import { Observable, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class CalendarHTTPService {
 
   private http = inject(HttpClient)
-  private url = '127.0.0.1:8000/'
-  private csrf_token = 'AgtRhcofxbuAFZvdLwRTRDfB8RgGH0CF'
+  private url = 'http://localhost:8000/'
   private header = new HttpHeaders({
-    'X-CSRFToken': `${this.csrf_token}`,
-    'Content-Type': `aplication/json`
+    'Content-Type': 'aplication/json'
   })
 
-  getStatus(){
-    return this.http.get(`${this.url}`)
+
+  getDailyStats(date: string, user_id: number): Observable<any>{
+    const requestBody = {
+      date,
+      user_id 
+    }
+    return this.http.post(`${this.url}calendar/`, requestBody, {headers: this.header})
   }
 
   constructor() { 
