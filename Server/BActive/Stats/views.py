@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from LandingPage.models import Stats
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 import json
 # Create your views here.
-
+@csrf_exempt
 def weekly(request: HttpRequest):
     if request.method == 'POST':
         try:
@@ -21,7 +22,7 @@ def weekly(request: HttpRequest):
             print(e)
             return HttpResponse('Error occured when filtering the year stats information', status=404)
 
-
+@csrf_exempt
 def yearly(request: HttpRequest):
     if request.method == 'POST':
         try:

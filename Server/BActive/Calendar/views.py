@@ -2,9 +2,11 @@ from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.core import serializers
 from LandingPage.models import Stats
+from django.views.decorators.csrf import csrf_exempt
 import json
 
 # Create your views here.
+@csrf_exempt
 def getday(request: HttpRequest):
     if request.method == 'POST':
         # the body must have a field called date and user_id 

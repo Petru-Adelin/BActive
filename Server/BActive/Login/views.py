@@ -7,18 +7,20 @@ from .utils import encrypt, decrypt
 from  django.core import serializers
 from django.middleware.csrf import get_token
 from django.views.decorators.http import require_http_methods
-
+from django.views.decorators.csrf import csrf_exempt
 
 import json
 
 
 # Create your views here.
-
+@csrf_exempt
 def login(request: HttpRequest):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
+
             username, password = data['username'], data['password']
+            
             try:
                 print(username, encrypt(password))
                 user = Users.objects.get(name = username)
@@ -26,16 +28,33 @@ def login(request: HttpRequest):
                     # check if the password is the same 
                     passw = decrypt(user.password)
                     if passw == password:
-                        data = serializers.serialize('json', [user])
-                        return HttpResponse('User is loged in, allowed to advance', status=200)
+                        return JsonResponse({
+                            'status': 200,
+                            'message': 'User is loged in, allowed to advance'
+                        })
                     else:
-                        return HttpResponse('Password is not matching...', status=404)
+                        return JsonResponse({
+                            'status': 404,
+                            'message': 'Password is not matching...'
+                        })
             except Users.DoesNotExist:
-                return HttpResponse('Login failed due to entity not being present in the database...', status=404)
+                return JsonResponse({
+                            'status': 404,
+                            'message': 'Login failed due to entity not being present in the database...'
+                        })
         except json.JSONDecodeError:
-            return HttpResponse('Login failed due to request.body not being conformed...', status=404)
+            return JsonResponse({
+                            'status': 404,
+                            'message': 'Login failed due to request.body not being conformed...'
+                        })
 
+    else:
+        return JsonResponse({
+            'status': 403,
+            'message': 'Forbidden HTTP request, only POST requests are allowed on this URL'
+        })
 
+@csrf_exempt
 def signin(request: HttpRequest):
     if request.method == 'POST':
 
@@ -53,7 +72,9 @@ def signin(request: HttpRequest):
 @ensure_csrf_cookie
 @require_http_methods(['GET'])
 def aquire_csrf(request: HttpRequest):
-    return JsonResponse({"csrfToken": get_token(request)})
+    csrf = request.COOKIES.get('csrftoken')
+    print(csrf)
+    return JsonResponse({'token': csrf})
 
 
 
